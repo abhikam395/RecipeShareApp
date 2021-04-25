@@ -1,0 +1,12 @@
+{
+  "name": "recipeshare",
+  "displayName": "recipeshare",
+  "expo": {
+    "name": "recipeshare",
+    "slug": "recipeshare",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
