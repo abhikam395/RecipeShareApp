@@ -1,30 +1,68 @@
 import React, {Component} from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, TextInput, TouchableOpacity, View, Text } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+const width = Dimensions.get('window').width;
+const textInputWidth = width - 100;
 
 export default class SearchComponent extends Component {
 
     constructor(){
         super();
-        this.navigateToSearchScreen = this.navigateToSearchScreen.bind(this);
+        this.state = {
+            inputText: "",
+        }
+        this.clearInput = this.clearInput.bind(this);
+        this.pressBackButton = this.pressBackButton.bind(this);
+        this.onSearchTextChange = this.onSearchTextChange.bind(this);
     }
 
-    navigateToSearchScreen(){
+    pressBackButton(){
         let {navigation} = this.props;
-        navigation.navigate('Search');
+        navigation.goBack();
+    }
+
+    clearInput(){
+        this.setState({inputText: ""});
+    }
+
+    onSearchTextChange(input){
+        if(input != "")
+            this.setState({inputText: input})
+        else
+            this.setState({inputText: ""})
     }
 
     render(){
+        let {inputText} = this.state;
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={this.navigateToSearchScreen}>
-                    <View style={styles.searchbar} >
-                        <Ionicons name="search" size={24}/>
+                <TouchableOpacity 
+                    style={styles.backIcon} 
+                    onPress={this.pressBackButton}>
+                    <Ionicons name="chevron-back-outline" size={20} color="black"/>
+                </TouchableOpacity>
+                <View style={styles.searchbar} >
+                        <Ionicons name="search" size={20}/>
                         <TextInput placeholder="Search" 
                             style={styles.input}
-                            onTouchStart={this.navigateToSearchScreen} showSoftInputOnFocus={false}/>
+                            onTouchStart={this.navigateToSearchScreen}
+                            onChangeText={this.onSearchTextChange}
+                            autoFocus
+                            value={inputText}/>
+                        {inputText != "" && (
+                            <MaterialIcons 
+                                name="cancel" 
+                                size={20} 
+                                color="black"
+                                onPress={this.clearInput}/>
+                            )
+                        }
                     </View>
+                <TouchableOpacity style={styles.filterIcon}>
+                    <Ionicons name="filter" size={20} color="black"/>
                 </TouchableOpacity>
             </View>
         )
@@ -36,7 +74,9 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 100,
         justifyContent: 'center',
-        paddingHorizontal: 35
+        paddingHorizontal: 35,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     searchbar: {
         backgroundColor: '#eeeeee',
@@ -46,12 +86,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 25,
-        color: 'black'
+        color: 'black',
+        width: textInputWidth
     },
     input: {
-        width: '100%',
+        width: '85%',
         height: 60,
         fontSize: 16,
         padding: 10
+    },
+    filterIcon: {
+        marginHorizontal: 10
+    },
+    backIcon: {
+        marginHorizontal: 10
     }
 })
