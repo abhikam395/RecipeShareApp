@@ -1,16 +1,31 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class SearchComponent extends Component {
+
+    constructor(){
+        super();
+        this.navigateToSearchScreen = this.navigateToSearchScreen.bind(this);
+    }
+
+    navigateToSearchScreen(){
+        let {navigation} = this.props;
+        navigation.navigate('Search');
+    }
+
     render(){
         return (
             <View style={styles.container}>
-                <View style={styles.searchbar}>
-                    <Ionicons name="search" size={24}/>
-                    <TextInput placeholder="Search" style={styles.input}/>
-                </View>
+                <TouchableOpacity onPress={this.navigateToSearchScreen}>
+                    <View style={styles.searchbar} >
+                        <Ionicons name="search" size={24}/>
+                        <TextInput placeholder="Search" 
+                            style={styles.input}
+                            onTouchStart={this.navigateToSearchScreen} showSoftInputOnFocus={false}/>
+                    </View>
+                </TouchableOpacity>
             </View>
         )
     }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, LogBox } from 'react-native';
 
 import CategoryComponent from '../components/CategoryComponent';
 import SearchComponent from '../components/SearchComponent';
@@ -11,10 +11,18 @@ import { GREENCOLOR } from '../../assets/js/commonColors';
 const Tab = createMaterialTopTabNavigator();
 
 export default class HomeScreen extends Component{
+
+    componentDidMount(){
+        LogBox.ignoreLogs([
+            'VirtualizedLists should never be nested', // TODO: Remove when fixed
+        ])
+    }
+
     render(){
         return (
-            <ScrollView style={styles.container}>
-                <SearchComponent />
+            <ScrollView 
+                style={styles.container} >
+                <SearchComponent {...this.props}/>
                 <CategoryComponent />
                 <View style={styles.divider}/>
 

@@ -17,6 +17,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { GREENCOLOR } from '../../assets/js/commonColors';
+import { HomeRouteScreen } from './HomeRouteScreen';
 
 export default class MainScreen extends Component{
 
@@ -74,7 +75,7 @@ export default class MainScreen extends Component{
                     }
                   }}
                 >
-                <Tab.Screen name="Home" component={HomeScreen} />
+                <Tab.Screen name="Home" component={HomeRouteScreen} />
                 <Tab.Screen name="Upload" component={UploadScreen} />
                 <Tab.Screen name="Scan" component={ScanSreen} />
                 <Tab.Screen name="Notification" component={NotificationScreen} />
