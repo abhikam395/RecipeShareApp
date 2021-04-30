@@ -25,14 +25,21 @@ export default class SearchComponent extends Component {
     }
 
     clearInput(){
+        let {callback} = this.props;
         this.setState({inputText: ""});
+        callback("");
     }
 
     onSearchTextChange(input){
-        if(input != "")
+        let {callback} = this.props;
+        if(input != ""){
             this.setState({inputText: input})
-        else
-            this.setState({inputText: ""})
+            callback(input);
+        }
+        else{
+            this.setState({inputText: ""});
+            callback("");
+        }
     }
 
     render(){
@@ -72,7 +79,7 @@ export default class SearchComponent extends Component {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 100,
+        height: 100,  
         justifyContent: 'center',
         paddingHorizontal: 35,
         flexDirection: 'row',

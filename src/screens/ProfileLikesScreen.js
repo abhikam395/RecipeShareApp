@@ -8,7 +8,7 @@ import recipies from './../../apis/recipesapi';
 const screenWidth = Dimensions.get('window').width;
 const cardSize = screenWidth / 2 - 30;
 
-export default class HomeRightScreen extends Component{
+export default class ProfileLikesScreen extends Component{
 
     constructor(props){
         super(props);
@@ -32,7 +32,7 @@ export default class HomeRightScreen extends Component{
         let {chef} = item;
         let {category} = item;
 
-        let IconName = item.selected ? 'favorite' : 'favorite-border';
+        let IconName = item.selected ? 'favorite-border' : 'favorite';
 
         return (
             <View style={styles.recipeItem}>
@@ -65,9 +65,8 @@ export default class HomeRightScreen extends Component{
                     data={recipes}
                     showsVerticalScrollIndicator={false}
                     renderItem={this.renderRecipeItem}
-                    keyExtractor={item => item.id.toString()}
-                    numColumns={2}
-                    listKey={(item, index) => 'D' + index.toString()}>
+                    listKey={(item, index) => 'D' + index.toString()}
+                    numColumns={2}>
                </FlatList>
            </View>
         )

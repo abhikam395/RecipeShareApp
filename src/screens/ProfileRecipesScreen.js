@@ -8,7 +8,7 @@ import recipies from './../../apis/recipesapi';
 const screenWidth = Dimensions.get('window').width;
 const cardSize = screenWidth / 2 - 30;
 
-export default class HomeRightScreen extends Component{
+export default class ProfileRecipesScreen extends Component{
 
     constructor(props){
         super(props);

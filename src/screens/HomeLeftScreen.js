@@ -3,37 +3,17 @@ import { StyleSheet, TouchableOpacity, Text, View, Dimensions, FlatList, Image }
 import { PRIMARYCOLOR } from '../../assets/js/commonColors';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import recipies from './../../apis/recipesapi';
 
-const DeviceHeight = Dimensions.get('window').height;
-const url = 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y29va3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80';
-
-const RECIPIES = [
-    {id: 1, name: 'Pancake', 
-        chef: {id: 1, name: 'Calum Lewis', image: url}, 
-        image: url, timeTaken: ' > 60 min', category: {id: 1, name: 'Food'}, selected: false},
-    {id: 2, name: 'Salad', 
-        chef: {id: 1, name: 'Calum Lewis', image: url}, 
-        image: url, timeTaken: ' > 60 min', category: {id: 1, name: 'Food'}, selected: false},
-    {id: 3, name: 'Pancake', 
-        chef: {id: 1, name: 'Calum Lewis', image: url}, 
-        image: url, timeTaken: ' > 60 min', category: {id: 1, name: 'Food'}, selected: false},
-    {id: 4, name: 'Pancake', 
-        chef: {id: 1, name: 'Calum Lewis', image: url}, 
-        image: url, timeTaken: ' > 60 min', category: {id: 1, name: 'Food'}, selected: false},
-    {id: 5, name: 'Pancake', 
-        chef: {id: 1, name: 'Calum Lewis', image: url}, 
-        image: url, timeTaken: ' > 60 min', category: {id: 1, name: 'Food'}, selected: false},
-    {id: 6, name: 'Pancake', 
-        chef: {id: 1, name: 'Calum Lewis', image: url}, 
-        image: url, timeTaken: ' > 60 min', category: {id: 1, name: 'Food'}, selected: false}
-]
+const screenWidth = Dimensions.get('window').width;
+const cardSize = screenWidth / 2 - 30;
 
 export default class HomeLeftScreen extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            recipes: RECIPIES
+            recipes: this.props.data != undefined ? this.props.data : recipies
         }
         this.renderRecipeItem = this.renderRecipeItem.bind(this);
         this.onFavoriteButtonPress = this.onFavoriteButtonPress.bind(this);
@@ -83,9 +63,11 @@ export default class HomeLeftScreen extends Component{
            <View style={styles.container}>
                <FlatList
                     data={recipes}
+                    showsVerticalScrollIndicator={false}
                     renderItem={this.renderRecipeItem}
                     keyExtractor={item => item.id.toString()}
-                    numColumns={2}>
+                    numColumns={2}
+                    listKey={(item, index) => 'D' + index.toString()}>
                </FlatList>
            </View>
         )
@@ -99,7 +81,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     recipeItem: {
-        flex: 1,
+        width: cardSize,
         marginRight: 20,
         marginVertical: 25
     },

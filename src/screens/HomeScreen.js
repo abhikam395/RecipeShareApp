@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { StyleSheet, View, ScrollView, LogBox, TouchableOpacity, TextInput } from 'react-native';
+import React, {Component, Fragment} from 'react';
+import { StyleSheet, View, ScrollView, TouchableOpacity, TextInput, FlatList } from 'react-native';
 
 import CategoryComponent from '../components/CategoryComponent';
 import HomeLeftScreen from './HomeLeftScreen';
@@ -18,9 +18,6 @@ export default class HomeScreen extends Component{
 
     constructor(){
         super();
-        LogBox.ignoreLogs([
-            'VirtualizedLists should never be nested', // TODO: Remove when fixed
-        ])
         this.navigateToSearchScreen = this.navigateToSearchScreen.bind(this);
     }
 
@@ -31,35 +28,41 @@ export default class HomeScreen extends Component{
 
     render(){
         return (
-            <ScrollView 
-                style={styles.container} >
-                 <View style={styles.searchbarContainer}>
-                    <TouchableOpacity onPress={this.navigateToSearchScreen}>
-                        <View style={styles.searchbar} >
-                            <Ionicons name="search" size={24}/>
-                            <TextInput placeholder="Search" 
-                                style={styles.input}
-                                onTouchStart={this.navigateToSearchScreen} 
-                                showSoftInputOnFocus={false}/>
+            <FlatList 
+                ListHeaderComponent={
+                    <Fragment>
+                        <View style={styles.searchbarContainer}>
+                            <TouchableOpacity onPress={this.navigateToSearchScreen}>
+                                <View style={styles.searchbar} >
+                                    <Ionicons name="search" size={24}/>
+                                    <TextInput placeholder="Search" 
+                                        style={styles.input}
+                                        onTouchStart={this.navigateToSearchScreen} 
+                                        showSoftInputOnFocus={false}/>
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
-                </View>
-                <CategoryComponent />
-                <Divider />
-
-                <Tab.Navigator 
-                    tabBarOptions={{
-                        activeTintColor: 'black',
-                        indicatorStyle: {
-                            backgroundColor: GREENCOLOR,
-                            height: 3
-                        }
-                    }}>
-                    <Tab.Screen name="Left" component={HomeLeftScreen} />
-                    <Tab.Screen name="Right" component={HomeRightScreen} />
-                </Tab.Navigator>
-
-            </ScrollView>
+                        <CategoryComponent />
+                        <Divider />
+                    </Fragment>
+                }
+                style={styles.container}
+                ListEmptyComponent={
+                    <Fragment>
+                         <Tab.Navigator 
+                            tabBarOptions={{
+                                activeTintColor: 'black',
+                                indicatorStyle: {
+                                    backgroundColor: GREENCOLOR,
+                                    height: 3
+                                }
+                            }}>
+                            <Tab.Screen name="Left" component={HomeLeftScreen} />
+                            <Tab.Screen name="Right" component={HomeRightScreen} />
+                        </Tab.Navigator>
+                    </Fragment>
+                }>
+            </FlatList>
         )
     }
 }
