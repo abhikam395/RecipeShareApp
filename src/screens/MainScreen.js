@@ -34,7 +34,7 @@ export default class MainScreen extends Component{
     render(){
         return (
             <Tab.Navigator 
-                initialRouteName="Profile"
+                initialRouteName="Notification"
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ focused, color, size }) => {
                         if (route.name === 'Home') {
