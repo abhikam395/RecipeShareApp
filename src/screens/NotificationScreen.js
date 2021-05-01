@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, SectionList, Image } from 'react-native';
+import { StyleSheet, View, Text, SectionList, Image, TouchableOpacity } from 'react-native';
+import { GREENCOLOR } from '../../assets/js/commonColors';
 
 const image = "https://media.istockphoto.com/photos/portrait-of-smiling-handsome-man-in-blue-tshirt-standing-with-crossed-picture-id1045886560?k=6&m=1045886560&s=612x612&w=0&h=hXrxai1QKrfdqWdORI4TZ-M0ceCVakt4o6532vHaS3I=";
 
@@ -36,6 +37,9 @@ const Item = ({ item }) => {
                     <Text style={styles.time}>{time}</Text>
                 </View>
             </View>
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Follow</Text>
+            </TouchableOpacity>
         </View>
       )
 };
@@ -65,17 +69,20 @@ export default class NotificationScreen extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20
+        paddingVertical: 10,
+        paddingHorizontal: 20
     },
     header: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: 'black'
+        color: 'black',
+        marginTop: 20
     },
     item: {
-        marginVertical: 30,
+        marginVertical: 20,
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     userImage: {
         height: 40,
@@ -84,7 +91,7 @@ const styles = StyleSheet.create({
     },
     userName: {
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 18,
         color: 'black'
     },
     message: {
@@ -103,5 +110,19 @@ const styles = StyleSheet.create({
     },
     time: {
         fontSize: 12
+    },
+    button: {
+        height: 40,
+        width: 100,
+        borderRadius: 20,
+        backgroundColor: GREENCOLOR,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 'auto'
+    },
+    buttonText: {
+        fontWeight: 'bold',
+        fontSize: 15,
+        color: 'white',
     }
 })
