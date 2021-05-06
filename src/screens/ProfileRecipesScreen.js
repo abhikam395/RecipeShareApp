@@ -33,12 +33,15 @@ export default class ProfileRecipesScreen extends Component{
         let {category} = item;
 
         let IconName = item.selected ? 'favorite' : 'favorite-border';
+        let {navigation} = this.props;
 
         return (
             <View style={styles.recipeItem}>
                 <View style={styles.chef}>
                     <Image style={styles.chefImage} source={{uri: chef.image}}/>
-                    <Text style={styles.chefName}>{chef.name}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("UserProfile")}>
+                        <Text style={styles.chefName}>{chef.name}</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.recipeImageContainer}>
                     <Image style={styles.recipeImage} source={{uri: item.image}} />

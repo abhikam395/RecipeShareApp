@@ -28,10 +28,6 @@ export default class SearchScreen extends Component {
         this.openBottomSheet = this.openBottomSheet.bind(this);
     }
 
-    componentDidMount(){
-        this.bottomSheet.open();
-    }
-
     searchQuery(query){
         if(query == "") {
             this.setState({searchRecipes: []})
