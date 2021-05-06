@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 export function HomeRouteScreen(){
     return (
         <Stack.Navigator 
-            initialRouteName="Home"
+            initialRouteName="Search"
             headerMode="none">
             <Stack.Screen 
                 name="Home" 

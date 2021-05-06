@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
-
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Slider from "@react-native-community/slider";
+import RBSheet from "react-native-raw-bottom-sheet";
 import Divider from '../components/DividerComponent';
 import LastSearchComponent from '../components/LastSearchComponent';
 import SearchComponent from '../components/SearchComponent';
@@ -9,6 +10,8 @@ import SearchSuggestion from '../components/SearchSuggestion';
 import HomeLeftScreen from './HomeLeftScreen';
 
 import recipies from './../../apis/recipesapi';
+import CategoryComponent from '../components/CategoryComponent';
+import { GREENCOLOR } from '../../assets/js/commonColors';
 
 const width = Dimensions.get('window').width;
 const textInputWidth = width - 100;
@@ -18,9 +21,15 @@ export default class SearchScreen extends Component {
     constructor(){
         super();
         this.state = {
-            searchRecipes: []
+            searchRecipes: [],
+            value: 0.2
         }
         this.searchQuery = this.searchQuery.bind(this);
+        this.openBottomSheet = this.openBottomSheet.bind(this);
+    }
+
+    componentDidMount(){
+        this.bottomSheet.open();
     }
 
     searchQuery(query){
@@ -38,11 +47,18 @@ export default class SearchScreen extends Component {
         this.setState({searchRecipes: searchRecipes});
     }
 
+    openBottomSheet(){
+        this.bottomSheet.open();
+    }
+
     render(){
         let {searchRecipes} = this.state;
         return (
             <View style={styles.container}>
-                <SearchComponent {...this.props} callback={this.searchQuery}/>
+                <SearchComponent 
+                    {...this.props} 
+                    callback={this.searchQuery} 
+                    openSheet={this.openBottomSheet}/>
                 <Divider />
                {searchRecipes.length == 0 && (
                    <Fragment>
@@ -56,6 +72,48 @@ export default class SearchScreen extends Component {
                         <HomeLeftScreen data={searchRecipes}/>
                   </View>
                )}
+               <RBSheet
+                    ref={ref => {
+                        this.bottomSheet = ref;
+                    }}
+                    height={450}
+                    closeOnDragDown={true}
+                    closeOnPressMask={false}
+                    openDuration={250}
+                    customStyles={{container: styles.buttomSheet}}>
+                    <View>
+                        <Text style={styles.bottomSheetTitle}>Add a Filter</Text>
+                        <View style={styles.bottomSheetContent}>
+                            <CategoryComponent />
+                            <View style={styles.duration}>
+                                <Text style={styles.bottomSheetLabel}>
+                                    Cooking Duration {""}
+                                    <Text style={styles.tint}>(in minutes)</Text>
+                                </Text>
+                                <View>
+                                    {/* <Text style={styles.label}></Text> */}
+                                </View>
+                                <Slider
+                                    useNativeDriver={true}
+                                    style={{marginVertical: 30, transform: [{scaleX: 1}, {scaleY: 5}]}}
+                                    minimumTrackTintColor={GREENCOLOR}
+                                    maximumTrackTintColor="lightgrey"
+                                    thumbTintColor={GREENCOLOR}
+                                    minimumValue={10}
+                                    maximumValue={50}
+                                />
+                                <View style={styles.buttons}>
+                                    <TouchableOpacity style={styles.cancelButton}>
+                                        <Text style={styles.cancelLabel}>Cancel</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.doneButton}>
+                                        <Text style={styles.doneLabel}>Done</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+               </RBSheet>
             </View>
         )
     }
@@ -65,7 +123,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     searchbar: {
         backgroundColor: 'lightgray',
@@ -94,5 +152,65 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: 'red'
-    }
+    },
+    buttomSheet: {
+        alignItems: 'center',
+    },
+    bottomSheetTitle: {
+        marginTop: 5,
+        fontSize: 18,
+        fontWeight: 'bold',
+        alignSelf: 'center'
+    },
+    bottomSheetContent: {
+        marginVertical: 10,
+        alignItems: 'flex-start',
+        minWidth: '100%',
+        padding: 10
+    },
+    bottomSheetLabel: {
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    tint: {
+        fontWeight: '400',
+        fontSize: 16,
+    },
+    duration: {
+        paddingHorizontal: 20
+    },
+    slider: {
+        color: GREENCOLOR,
+    },
+    cancelButton: {
+        height: 50,
+        width: 150,
+        backgroundColor: 'lightgrey',
+        borderRadius: 25,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttons: {
+        flexDirection: 'row',
+        marginVertical: 20
+    },
+    cancelLabel: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: 'black'
+    },
+    doneButton: {
+        height: 50,
+        width: 150,
+        backgroundColor: GREENCOLOR,
+        borderRadius: 25,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 20
+    },
+    doneLabel: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: 'white'
+    },
 })

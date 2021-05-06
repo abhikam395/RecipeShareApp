@@ -7,14 +7,12 @@ import HomeRightScreen from './HomeRightScreen';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { GREENCOLOR } from '../../assets/js/commonColors';
 import Divider from '../components/DividerComponent';
 const Tab = createMaterialTopTabNavigator();
 
 export default class HomeScreen extends Component{
-    
 
     constructor(){
         super();

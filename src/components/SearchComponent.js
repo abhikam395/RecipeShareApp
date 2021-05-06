@@ -49,7 +49,10 @@ export default class SearchComponent extends Component {
                 <TouchableOpacity 
                     style={styles.backIcon} 
                     onPress={this.pressBackButton}>
-                    <Ionicons name="chevron-back-outline" size={20} color="black"/>
+                    <Ionicons 
+                        name="chevron-back-outline" 
+                        size={20} 
+                        color="black"/>
                 </TouchableOpacity>
                 <View style={styles.searchbar} >
                         <Ionicons name="search" size={20}/>
@@ -68,7 +71,9 @@ export default class SearchComponent extends Component {
                             )
                         }
                     </View>
-                <TouchableOpacity style={styles.filterIcon}>
+                <TouchableOpacity 
+                    style={styles.filterIcon} 
+                    onPress={() => this.props.openSheet()}>
                     <Ionicons name="filter" size={20} color="black"/>
                 </TouchableOpacity>
             </View>
@@ -97,15 +102,14 @@ const styles = StyleSheet.create({
         width: textInputWidth
     },
     input: {
-        width: '85%',
         height: 60,
         fontSize: 16,
         padding: 10
     },
     filterIcon: {
-        marginHorizontal: 10
+        marginHorizontal: 20,
     },
     backIcon: {
-        marginHorizontal: 10
+        marginHorizontal: 20
     }
 })
