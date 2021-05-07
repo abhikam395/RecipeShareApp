@@ -4,8 +4,6 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
-import HomeScreen from './HomeScreen';
-import UploadScreen from './UploadScreen';
 import ScanSreen from './ScanScreen';
 import ProfileScreen from './ProfileScreen';
 import NotificationScreen from './NotificationScreen';
@@ -24,11 +22,17 @@ export default class MainScreen extends Component{
     constructor(){
         super();
         this.navigateToScanScreen = this.navigateToScanScreen.bind(this);
+        this.navigateToUploadScreen = this.navigateToUploadScreen.bind(this);
     }
 
     navigateToScanScreen(){
         let {navigation} = this.props;
         navigation.navigate('Scan');
+    }
+
+    navigateToUploadScreen(){
+        let {navigation} = this.props;
+        navigation.navigate('Upload');
     }
 
     render(){
@@ -49,9 +53,9 @@ export default class MainScreen extends Component{
                             
                         else if (route.name === 'Upload') {
                             if(focused)
-                                return <Octicons name="pencil" size={18}/>
+                                return <Octicons name="pencil" size={18} onPress={this.navigateToUploadScreen}/>
                             else 
-                                return <SimpleLineIcons name="pencil" size={18}/>
+                                return <SimpleLineIcons name="pencil" size={18} onPress={this.navigateToUploadScreen}/>
                         }
                         else if (route.name === "Scan"){
                             return (
@@ -76,7 +80,12 @@ export default class MainScreen extends Component{
                   }}
                 >
                 <Tab.Screen name="Home" component={HomeRouteScreen} />
-                <Tab.Screen name="Upload" component={UploadScreen} />
+                <Tab.Screen name="Upload"
+                    component=""
+                    options={({navigation}) => ({
+                        tabBarButton: props => 
+                            <TouchableOpacity {...props} onPress={this.navigateToUploadScreen} />
+                })}/>
                 <Tab.Screen name="Scan" component={ScanSreen} />
                 <Tab.Screen name="Notification" component={NotificationScreen} />
                 <Tab.Screen name="Profile" component={ProfileScreen} />

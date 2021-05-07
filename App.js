@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import MainScreen from './src/screens/MainScreen';
+import UploadScreen from './src/screens/UploadScreen';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator  headerMode="none">
         <Stack.Screen name="Home" component={MainScreen} />
+        <Stack.Screen name="Upload" component={UploadScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
