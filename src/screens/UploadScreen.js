@@ -9,7 +9,7 @@ export default class UploadScreen extends Component{
     render(){
         return (
             <Stack.Navigator 
-                initialRouteName="FirtUpload" 
+                initialRouteName="SecondUpload" 
                 headerMode="none">
                 <Stack.Screen name="FirstUpload" component={FirstUploadScreen} />
                 <Stack.Screen name="SecondUpload" component={SecondUploadScreen} />
