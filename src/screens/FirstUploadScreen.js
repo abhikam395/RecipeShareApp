@@ -1,7 +1,7 @@
 import React, {Component } from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image, TextInput } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 import { GREENCOLOR } from '../../assets/js/commonColors';
 import Slider from '@react-native-community/slider';
 
