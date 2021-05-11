@@ -22,9 +22,8 @@ export default class ProductScreen extends Component{
                         this.bottomSheet = ref;
                     }}
                     height={500}
-                    closeOnDragDown={true}
-                    closeOnPressMask={false}
                     openDuration={250}
+                    closeOnDragDown={true}
                     customStyles={{container: styles.buttomSheet}}>
                     <View style={styles.bottomSheetContainer}>
                         <Text style={styles.title}>Cacao Maca Walnut Milk</Text>
@@ -59,9 +58,24 @@ export default class ProductScreen extends Component{
                             you can see it on your</Text>
                         <View style={styles.line}/>
                         <Text style={styles.subtitle}>Ingredients</Text>
-                        <View style={styles.ingredient}>
-                            <View style={{height: 30, width: 30, borderRadius: 15, backgroundColor: GREENCOLOR, opacity: 0.2}}>
-                                <MaterialIcons name="done" size={20}/>
+                        <View style={styles.ingredientContainer}>
+                            <View style={styles.ingredient}>
+                                <View style={styles.doneIcon}>
+                                    <MaterialIcons name="done" size={18} color={GREENCOLOR}/>
+                                </View>
+                                <Text style={styles.ingredientLabel}>4 Eggs</Text>
+                            </View>
+                            <View style={styles.ingredient}>
+                                <View style={styles.doneIcon}>
+                                    <MaterialIcons name="done" size={18} color={GREENCOLOR}/>
+                                </View>
+                                <Text style={styles.ingredientLabel}>4 Eggs</Text>
+                            </View>
+                            <View style={styles.ingredient}>
+                                <View style={styles.doneIcon}>
+                                    <MaterialIcons name="done" size={18} color={GREENCOLOR}/>
+                                </View>
+                                <Text style={styles.ingredientLabel}>4 Eggs</Text>
                             </View>
                         </View>
                     </View>
@@ -78,11 +92,10 @@ const styles = StyleSheet.create({
     buttomSheet: {
         alignItems: 'center',
         borderTopEndRadius: 30,
-        borderTopLeftRadius: 30
+        borderTopLeftRadius: 30,
     },
     bottomSheetContainer: {
         width: '100%',
-        height: '100%',
         padding: 20
     },
     box: {
@@ -153,5 +166,26 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
         color: 'grey'
+    },
+    ingredient: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 8
+    },
+    ingredientLabel: {
+        marginLeft: 10,
+        fontWeight: 'bold',
+        fontSize: 15,
+    },
+    doneIcon: {
+        height: 30, 
+        width: 30, 
+        borderRadius: 15, 
+        backgroundColor: 'rgba(0, 200, 83, .1)', 
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+    ingredientContainer: {
+        paddingVertical: 20
     }
 })
