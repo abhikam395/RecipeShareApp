@@ -1,4 +1,4 @@
-import React, {Component } from 'react';
+import React, {Component, Fragment } from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image, TextInput, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {launchCamera} from 'react-native-image-picker';
@@ -6,6 +6,7 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import Divider from '../components/DividerComponent';
 import FontistoIcon from 'react-native-vector-icons/Fontisto';
 import { GREENCOLOR } from '../../assets/js/commonColors';
+import UploadSuccessComponent from '../components/UploadSuccessComponent';
 
 export default class SecondUploadScreen extends Component{
 
@@ -14,7 +15,9 @@ export default class SecondUploadScreen extends Component{
         this.state = {
             imagePath: null,
             slideValue: 0,
+            uploaded: false
         }
+        this.upload = this.upload.bind(this);
         this.launchCamera = this.launchCamera.bind(this);
     }
 
@@ -41,73 +44,85 @@ export default class SecondUploadScreen extends Component{
           });
     }
 
+    upload(){
+        this.setState({uploaded: true})
+    }
+
     render(){
         let {navigation} = this.props;
+        let {uploaded} = this.state;
 
         return (
-            <ScrollView style={styles.container}>
-                <View style={styles.row}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Text style={styles.cancelLabel}>Cancel</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.currentPage}>2/<Text style={{color: 'grey'}}>2</Text></Text>
-                </View>
-                <View style={styles.ingredientContainer}>
+            <Fragment>
+               {uploaded && <UploadSuccessComponent  {...this.props}/>}
+                <ScrollView style={styles.container}>
                     <View style={styles.row}>
-                        <Text style={styles.subtitle}>Ingredients</Text>
-                        <TouchableOpacity style={styles.groupBox}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <Text style={styles.cancelLabel}>Cancel</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.currentPage}>2/<Text style={{color: 'grey'}}>2</Text></Text>
+                    </View>
+                    <View style={styles.ingredientContainer}>
+                        <View style={styles.row}>
+                            <Text style={styles.subtitle}>Ingredients</Text>
+                            <TouchableOpacity style={styles.groupBox}>
+                                <AntDesignIcon name="plus" style={styles.plusIcon}/>
+                                <Text style={styles.groupLabel}>Group</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.row}>
+                            <FontistoIcon name="nav-icon-grid-a" color="grey" size={16}/>
+                            <TextInput placeholder="Enter ingredient" style={styles.input}/>
+                        </View>
+                        <View style={styles.row}>
+                            <FontistoIcon name="nav-icon-grid-a" color="grey" size={16}/>
+                            <TextInput placeholder="Enter ingredient" style={styles.input}/>
+                        </View>
+                        <TouchableOpacity style={styles.ingredientButton}>
                             <AntDesignIcon name="plus" style={styles.plusIcon}/>
-                            <Text style={styles.groupLabel}>Group</Text>
+                            <Text style={styles.ingredientButtonLabel}>Ingredient</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.row}>
-                        <FontistoIcon name="nav-icon-grid-a" color="grey" size={16}/>
-                        <TextInput placeholder="Enter ingredient" style={styles.input}/>
-                    </View>
-                    <View style={styles.row}>
-                        <FontistoIcon name="nav-icon-grid-a" color="grey" size={16}/>
-                        <TextInput placeholder="Enter ingredient" style={styles.input}/>
-                    </View>
-                    <TouchableOpacity style={styles.ingredientButton}>
-                        <AntDesignIcon name="plus" style={styles.plusIcon}/>
-                        <Text style={styles.ingredientButtonLabel}>Ingredient</Text>
-                    </TouchableOpacity>
-                </View>
-                <Divider/>
-                <View style={styles.stepContainer}>
-                    <Text style={styles.subtitle}>Steps</Text>
-                    <View style={styles.row}>
-                        <View style={styles.firstStepLeft}>
-                            <View style={styles.round}>
-                                <Text style={styles.roundLabel}>1</Text>
+                    <Divider/>
+                    <View style={styles.stepContainer}>
+                        <Text style={styles.subtitle}>Steps</Text>
+                        <View style={styles.row}>
+                            <View style={styles.firstStepLeft}>
+                                <View style={styles.round}>
+                                    <Text style={styles.roundLabel}>1</Text>
+                                </View>
+                                <FontistoIcon 
+                                    name="nav-icon-grid-a" 
+                                    color="grey" 
+                                    size={16} 
+                                    style={styles.grid}/>
                             </View>
-                            <FontistoIcon 
-                                name="nav-icon-grid-a" 
-                                color="grey" 
-                                size={16} 
-                                style={styles.grid}/>
+                            <View style={styles.firstStepRight}>
+                                <TextInput 
+                                    style={styles.stepInput}
+                                    placeholder="Tell a little about your food"/>
+                                <TouchableOpacity 
+                                    style={styles.cameraButton} 
+                                    onPress={this.launchCamera}>
+                                        <Ionicons name="camera" size={28} color="darkblue"/>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                        <View style={styles.firstStepRight}>
-                            <TextInput 
-                                style={styles.stepInput}
-                                placeholder="Tell a little about your food"/>
+                        <View style={styles.buttons}>
                             <TouchableOpacity 
-                                style={styles.cameraButton} 
-                                onPress={this.launchCamera}>
-                                    <Ionicons name="camera" size={28} color="darkblue"/>
+                                style={styles.backButton} 
+                                onPress={() => navigation.goBack()}>
+                                    <Text style={styles.backButtonLabel}>Back</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                style={styles.nextButton} 
+                                onPress={this.upload}>
+                                    <Text style={styles.nextButtonLabel}>Next</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={styles.buttons}>
-                        <TouchableOpacity style={styles.backButton}>
-                            <Text style={styles.backButtonLabel}>Back</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.nextButton}>
-                            <Text style={styles.nextButtonLabel}>Next</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </Fragment>
         )
     }
 }
@@ -214,12 +229,11 @@ const styles = StyleSheet.create({
     cameraButton: {
         height: 50,
         backgroundColor: '#eceff1',
-        marginVertical: 20,
+        marginVertical: 10,
         alignItems: 'center',
         justifyContent: 'center'
     },
     buttons: {
-        marginVertical: 20,
         paddingHorizontal: 20,
         flexDirection: 'row'
     },
