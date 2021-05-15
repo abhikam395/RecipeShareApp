@@ -1,31 +1,61 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import RBSheet from "react-native-raw-bottom-sheet";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { GREENCOLOR } from '../../assets/js/commonColors';
 
 let imageUrl = 'https://media.istockphoto.com/photos/food-backgrounds-table-filled-with-large-variety-of-food-picture-id1155240408?k=6&m=1155240408&s=612x612&w=0&h=SEhOUzsexrBBtRrdaLWNB6Zub65Dnyjk7vVrTk1KQSU=';
 
-
 export default class ProductScreen extends Component{
+
+    constructor(){
+        super();
+        this.state = {
+            height: 500
+        }
+        this._onScroll = this._onScroll.bind(this);
+    }
 
     componentDidMount(){
         this.bottomSheet.open();
     }
 
+    _onScroll(e){
+        // from the nativeEvent we can get the contentOffsett
+        var offset_y = e.nativeEvent.contentOffset.y;
+        // if (offset_y > 0 ) {
+        //  if (this.state.height>=0){
+        //   // we are scrolling down the list, decrease height of the empty view
+        //   this.setState({height: this.state.height-offset_y});
+        //  }
+        // }
+        // if (offset_y <0){
+        //   if (this.state.height <= this.state.mapHeight){
+        //     // we are scrolling up the list, increase size of empty view/map view 
+        //     this.setState({height: this.state.height-offset_y});
+        //   }
+        // }
+        this.setState({height: 500 + offset_y})
+      }
+    
+
     render(){
+        let {height} = this.state;
+        console.log(height)
         return (
             <View style={styles.container}>
                 <Image source={{uri: imageUrl}} style={styles.image}/>
                 <RBSheet
+                    
                     ref={ref => {
                         this.bottomSheet = ref;
                     }}
-                    height={500}
+                    height={height}
                     openDuration={250}
-                    closeOnDragDown={true}
+                    closeOnDragDown={false}
+                    closeOnPressBack={false}
                     customStyles={{container: styles.buttomSheet}}>
-                    <View style={styles.bottomSheetContainer}>
+                    <View style={Object.assign({...styles.bottomSheetContainer}, {height: height})} >
                         <Text style={styles.title}>Cacao Maca Walnut Milk</Text>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Text style={styles.category}>Food</Text>
@@ -69,16 +99,19 @@ export default class ProductScreen extends Component{
                                 <View style={styles.doneIcon}>
                                     <MaterialIcons name="done" size={18} color={GREENCOLOR}/>
                                 </View>
-                                <Text style={styles.ingredientLabel}>4 Eggs</Text>
+                                <Text style={styles.ingredientLabel}>1/2 Butter</Text>
                             </View>
                             <View style={styles.ingredient}>
                                 <View style={styles.doneIcon}>
                                     <MaterialIcons name="done" size={18} color={GREENCOLOR}/>
                                 </View>
-                                <Text style={styles.ingredientLabel}>4 Eggs</Text>
+                                <Text style={styles.ingredientLabel}>1/2 Butter</Text>
                             </View>
                         </View>
+                        <View style={styles.line}/>
+                        <Text style={styles.subtitle}>Steps</Text>
                     </View>
+                    
                </RBSheet>
             </View>
         )
@@ -96,7 +129,7 @@ const styles = StyleSheet.create({
     },
     bottomSheetContainer: {
         width: '100%',
-        padding: 20
+        padding: 20,
     },
     box: {
         height: 100,

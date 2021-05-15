@@ -36,7 +36,8 @@ export default class HomeLeftScreen extends Component{
         let {navigation} = this.props;
 
         return (
-            <View style={styles.recipeItem}>
+            <TouchableOpacity style={styles.recipeItem} 
+                onPress={() => navigation.navigate('Product')}>
                 <View style={styles.chef}>
                     <Image style={styles.chefImage} source={{uri: chef.image}}/>
                     <TouchableOpacity onPress={() => navigation.navigate("UserProfile")}>
@@ -56,7 +57,7 @@ export default class HomeLeftScreen extends Component{
                     <View style={styles.dot} />
                     <Text style={styles.duration}>{item.timeTaken}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
  
