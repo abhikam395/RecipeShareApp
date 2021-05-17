@@ -8,6 +8,8 @@ import MainScreen from './src/screens/MainScreen';
 import UploadScreen from './src/screens/UploadScreen';
 import ProductScreen from './src/screens/ProductScreen';
 import SplashScreen from './src/screens/SplashScreen';
+import PasswordRecoveryScreen from './src/screens/PasswordRecoveryScreen';
+import VerifyEmailScreen from './src/screens/VerifyEmailScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +21,8 @@ export default function App() {
         <Stack.Screen name="Upload" component={UploadScreen}/>
         <Stack.Screen name="Product" component={ProductScreen} />
         <Stack.Screen name="Splash" component={SplashScreen}/>
+        <Stack.Screen name="PasswordRecovery" component={PasswordRecoveryScreen}/>
+        <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
